@@ -1,3 +1,5 @@
 _resharper*/
 bin/
 obj/
+*.user
+*.suo
