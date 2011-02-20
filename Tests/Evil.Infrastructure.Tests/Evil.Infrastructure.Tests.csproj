@@ -67,7 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="DataAccess\Account_CRUD.cs" />
+    <Compile Include="DataAccess\When_retrieving_account.cs" />
+    <Compile Include="DataAccess\When_retrieving_targets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\DbTest.cs" />
     <Compile Include="Schema\Generate_schema.cs" />
