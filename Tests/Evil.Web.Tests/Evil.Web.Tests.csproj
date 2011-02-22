@@ -31,17 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL" />
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\..\packages\MicrosoftWebMvc.2.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib.TestHelper">
-      <HintPath>..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.57.0\lib\MvcContrib.TestHelper.dll</HintPath>
+      <HintPath>..\..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.57.0\lib\MvcContrib.TestHelper.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
-      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+      <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -81,19 +86,19 @@
     <Compile Include="TestHelpers\ValidationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Source\Evil.Infrastructure\Evil.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Source\Evil.Infrastructure\Evil.Infrastructure.csproj">
       <Project>{63199572-BC9D-45E1-9F5E-5618DCD29C8C}</Project>
       <Name>Evil.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Source\Evil.Web\Evil.Web.csproj">
+    <ProjectReference Include="..\..\Source\Evil.Web\Evil.Web.csproj">
       <Project>{19606507-DBFA-4C20-B924-413795515499}</Project>
       <Name>Evil.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Source\Evil\Evil.csproj">
+    <ProjectReference Include="..\..\Source\Evil\Evil.csproj">
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>
       <Name>Evil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tests\Evil.Tests\Evil.Tests.csproj">
+    <ProjectReference Include="..\Evil.Tests\Evil.Tests.csproj">
       <Project>{EDF38BB2-2C0A-4160-8E7A-35840EFE6A21}</Project>
       <Name>Evil.Tests</Name>
     </ProjectReference>

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Infrastructure.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Web", "Source\Evil.Web\Evil.Web.csproj", "{19606507-DBFA-4C20-B924-413795515499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Web.Tests", "Evil.Web.Tests\Evil.Web.Tests.csproj", "{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Web.Tests", "Tests\Evil.Web.Tests\Evil.Web.Tests.csproj", "{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
