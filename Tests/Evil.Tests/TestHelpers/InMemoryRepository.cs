@@ -8,7 +8,7 @@ namespace Evil.Tests.TestHelpers
     public class InMemoryRepository<T> : IRepository<T> where T : Entity
     {
 
-        private readonly List<T> _items;
+        private List<T> _items;
         private List<T> _savedEntities;
 
         public InMemoryRepository(IEnumerable<T> items)
@@ -80,6 +80,12 @@ namespace Evil.Tests.TestHelpers
         public void ClearSavedEntities()
         {
             _savedEntities = new List<T>();
+        }
+
+        public void Clear()
+        {
+            ClearSavedEntities();
+            _items = new List<T>();
         }
     }
 }

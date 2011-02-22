@@ -7,6 +7,7 @@ using Evil.Web.Models;
 using Evil.Web.Services;
 using Evil.Web.Tests.TestHelpers;
 using MbUnit.Framework;
+using MvcContrib.TestHelper;
 using Rhino.Mocks;
 
 namespace Evil.Web.UnitTests.Controllers
@@ -17,7 +18,7 @@ namespace Evil.Web.UnitTests.Controllers
         #region Setup/Teardown
 
         [SetUp]
-        public void init()
+        public void Arrange()
         {
 
             _login = new LoginView {EmailAddress = _emailAddress, Password = _password};
@@ -44,12 +45,12 @@ namespace Evil.Web.UnitTests.Controllers
         private const bool _rememberMe = false;
         private const string _invalidEmailAddress = "notReal@test.com";
         private AccountController _controller;
-        private IRepository<Account> _accountRepository;
+        private InMemoryRepository<Account> _accountRepository;
         private LoginView _login;
         private ObjectMother _mother;
         private Account _account;
         private IFormsService _formsService;
-        private IRepository<Player> _playerRepository;
+        private InMemoryRepository<Player> _playerRepository;
         private Player _currentPlayer;
 
         [Test]
@@ -115,12 +116,9 @@ namespace Evil.Web.UnitTests.Controllers
         [Test]
         public void success_redirects_to_start_game_if_no_current_game()
         {
+            _playerRepository.Clear();
             var success = _controller.Login(_login);
-            Assert.IsInstanceOfType(typeof(RedirectToRouteResult), success);
-            var redirect = success as RedirectToRouteResult;
-            //TODO: strong type these.
-            Assert.AreEqual(redirect.RouteValues["Controller"], "Game");
-            Assert.AreEqual(redirect.RouteValues["Action"], "Start");
+            var redirect = success.AssertActionRedirect().ToAction<GameController>(m => m.Start());
         }
     }
 }
