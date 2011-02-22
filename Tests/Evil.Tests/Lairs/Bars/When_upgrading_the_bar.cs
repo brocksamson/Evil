@@ -30,6 +30,12 @@ namespace Evil.Tests.Lairs.Bars
     }
 
     [TestFixture]
+    public class When_adding_sections_to_the_bar
+    {
+        
+    }
+
+    [TestFixture]
     public class When_assigning_agents_to_the_bar
     {
         [SetUp]

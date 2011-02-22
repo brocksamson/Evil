@@ -6,7 +6,7 @@ namespace Evil.Users
     {
         public static Player CurrentPlayerFor(this IQueryable<Player> query, Account account)
         {
-            return query.FirstOrDefault(m => m.Account == account);
+            return query.FirstOrDefault(m => m.Account.Id == account.Id);
         }
     }
 }

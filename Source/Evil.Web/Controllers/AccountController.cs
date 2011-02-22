@@ -31,11 +31,11 @@ namespace Evil.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            Account account = _accountRepository.Get.ByEmailAddress(model.EmailAddress);
+            var account = _accountRepository.Get.ByEmailAddress(model.EmailAddress);
             if (account != null && account.EmailAddress == model.EmailAddress)
             {
                 //add a better message here...
-                ModelState.AddModelErrorFor<AccountCreationModel>(m => m.EmailAddress,
+                ModelState.AddModelErrorFor<AccountCreationModel, string>(m => m.EmailAddress,
                                                                       "Email address already used, please specify another one.");
                 return View(model);
             }
@@ -49,7 +49,7 @@ namespace Evil.Web.Controllers
             _accountRepository.Save(player);
             //TODO: Enable email activation
             //return this.RedirectToAction(c => c.Created());
-            return this.RedirectToAction<GameController>(a => a.Start());
+            return RedirectToAction("Start", "Game");
         }
 
         public ActionResult Created()
@@ -65,20 +65,20 @@ namespace Evil.Web.Controllers
             Account account = _accountRepository.Get.ByEmailAddress(login.EmailAddress);
             if (account == null)
             {
-                ModelState.AddModelErrorFor<LoginView>(m => m.EmailAddress, "Unknown Email Address");
+                ModelState.AddModelErrorFor<LoginView, string>(m => m.EmailAddress, "Unknown Email Address");
                 return View(login);
             }
             if (account.Password != login.Password)
             {
-                ModelState.AddModelErrorFor<LoginView>(m => m.Password, "Incorrect Password.");
+                ModelState.AddModelErrorFor<LoginView, string>(m => m.Password, "Incorrect Password.");
                 return View(login);
             }
 
             _formsService.SignIn(login.EmailAddress, login.RememberMe);
             var player = _playerRepository.Get.CurrentPlayerFor(account);
-            if(player == null || player.Account == null || player.Account != account)
-                return this.RedirectToAction<GameController>(m => m.Start());
-            return this.RedirectToAction<GameController>(m => m.Index());
+            if (player == null || player.Account == null || player.Account != account)
+                return RedirectToAction("Start", "Game");
+            return RedirectToAction("Index", "Game");
         }
 
         public ActionResult Login()

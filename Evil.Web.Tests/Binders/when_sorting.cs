@@ -98,7 +98,7 @@ namespace Evil.Web.UnitTests.Binders
         {
             var func = Act(null, null);
             var result = func.Invoke(_sort);
-            Assert.AreEqual(result, _sort.Id);
+            Assert.AreEqual(_sort.Name, result);
         }
 
         //[Test]

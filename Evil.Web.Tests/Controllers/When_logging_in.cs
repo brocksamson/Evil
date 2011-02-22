@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Evil.Common;
+using Evil.Tests.TestHelpers;
 using Evil.Users;
 using Evil.Web.Controllers;
 using Evil.Web.Models;
@@ -28,12 +29,11 @@ namespace Evil.Web.UnitTests.Controllers
                 Name = "Player1"
             };
 
-            _accountRepository = MockRepository.GenerateStub<IRepository<Account>>();
+            _accountRepository = new InMemoryRepository<Account>(_account);
+            _playerRepository = new InMemoryRepository<Player>(_currentPlayer);
+
             _formsService = MockRepository.GenerateMock<IFormsService>();
-            _playerRepository = MockRepository.GenerateMock<IRepository<Player>>();
-            
-            _accountRepository.Stub(a => a.Get.ByEmailAddress(_emailAddress)).Return(_account);
-            _accountRepository.Stub(a => a.Get.ByEmailAddress(_emailAddress)).Return(null);
+
             _controller = new AccountController(_accountRepository, _playerRepository, _formsService);
         }
 
@@ -103,7 +103,6 @@ namespace Evil.Web.UnitTests.Controllers
         [Test]
         public void success_redirects_to_game_in_progress()
         {
-            _playerRepository.Stub(m => m.Get.CurrentPlayerFor(_account)).Return(_currentPlayer);
             var success = _controller.Login(_login);
             Assert.IsInstanceOfType<RedirectToRouteResult>(success);
             var redirect = success as RedirectToRouteResult;
@@ -116,7 +115,6 @@ namespace Evil.Web.UnitTests.Controllers
         [Test]
         public void success_redirects_to_start_game_if_no_current_game()
         {
-            _playerRepository.Stub(m => m.Get.CurrentPlayerFor(_account)).Return(new Player());
             var success = _controller.Login(_login);
             Assert.IsInstanceOfType(typeof(RedirectToRouteResult), success);
             var redirect = success as RedirectToRouteResult;

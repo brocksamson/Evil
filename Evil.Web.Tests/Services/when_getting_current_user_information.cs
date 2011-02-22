@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.Principal;
 using Evil.Common;
 using Evil.Users;
@@ -29,8 +31,8 @@ namespace Evil.Web.Tests.Services
         public void SetUp()
         {
             _sessionPlayer = new Player();
-            _databasePlayer = new Player();
             _databaseAccount = new Account {EmailAddress = "email@address.com"};
+            _databasePlayer = new Player { Account = _databaseAccount };
             _sessionAccount = new Account();
 
             _httpSession = MockRepository.GenerateMock<IHttpSession>();
@@ -41,7 +43,7 @@ namespace Evil.Web.Tests.Services
 
             _user.Stub(m => m.Identity).Return(_identity);
             _identity.Stub(m => m.Name).Return(_databaseAccount.EmailAddress);
-            _accountRepository.Stub(m => m.Get.ByEmailAddress(_databaseAccount.EmailAddress)).Return(_databaseAccount);
+            _accountRepository.Stub(m => m.Get).Return((new Collection<Account>{_databaseAccount}).AsQueryable());
 
             _userProvider = new TestUserProvider(_accountRepository, _playerRepository, _httpSession, _user);
         }
@@ -56,6 +58,7 @@ namespace Evil.Web.Tests.Services
         [Test]
         public void returns_null_if_no_current_player()
         {
+            _playerRepository.Stub(m => m.Get).Return(new Collection<Player>().AsQueryable());
             _identity.Stub(m => m.IsAuthenticated).Return(true);
             Assert.IsNull(_userProvider.CurrentPlayer());
         }
@@ -72,7 +75,7 @@ namespace Evil.Web.Tests.Services
         [Test]
         public void retrieves_player_and_stores_in_session()
         {
-            _playerRepository.Stub(m => m.Get.CurrentPlayerFor(_databaseAccount)).Return(_databasePlayer);
+            _playerRepository.Stub(m => m.Get).Return((new Collection<Player>{_databasePlayer}).AsQueryable());
             _identity.Stub(m => m.IsAuthenticated).Return(true);
             var player = _userProvider.CurrentPlayer();
             Assert.AreEqual(player, _databasePlayer);

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Mvc;
 using Evil.Common;
+using Evil.Tests.TestHelpers;
 using Evil.Users;
 using Evil.Web.Controllers;
 using Evil.Web.Models;
@@ -35,8 +36,7 @@ namespace Evil.Web.UnitTests.Controllers
             _mapGenerator = MockRepository.GenerateMock<IMapGenerator>();
             _mapGenerator.Expect(m => m.GenerateTargetMap(_targets)).Return(_map);
 
-            _targetRepository = MockRepository.GenerateMock<IRepository<Target>>();
-            _targetRepository.Expect(m => m.Get.ValidTargetsFor(_player)).Return(_targets.AsQueryable());
+            _targetRepository = new InMemoryRepository<Target>(_targets);
             _controller = new MissionController(_mapGenerator, _targetRepository);
         }
 
