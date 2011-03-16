@@ -1,8 +1,8 @@
 using Evil.Common;
 
-namespace Evil.Bases
+namespace Evil.Lairs
 {
-    public class Base : Entity
+    public class Lair : Entity
     {
         public virtual Position Position { get; set; }
 

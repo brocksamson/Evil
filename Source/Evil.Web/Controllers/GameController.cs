@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Web.Mvc;
-using Evil.Bases;
 using Evil.Common;
+using Evil.Lairs;
 using Evil.Users;
 using Evil.Web.Models;
 using Evil.Web.Services;
@@ -41,7 +41,7 @@ namespace Evil.Web.Controllers
                              {
                                  Account = currentAccount,
                                  Name = model.Name,
-                                 MainBase =
+                                 MainLair =
                                      CreateFirstBase(model, latitude, longitude)
                              };
             _playerRepository.Save(player);
@@ -49,9 +49,9 @@ namespace Evil.Web.Controllers
             
         }
 
-        private Base CreateFirstBase(CreatePlayerView model, double latitude, double longitude)
+        private Lair CreateFirstBase(CreatePlayerView model, double latitude, double longitude)
         {
-            return new Base
+            return new Lair
                        {
                            Position = new Position(latitude, longitude),
                            Name = model.BaseName

@@ -66,11 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Nhibernate\AutomappingConfiguration.cs" />
+    <Compile Include="Nhibernate\EvilConnectionString.cs" />
     <Compile Include="Nhibernate\IConnectionString.cs" />
     <Compile Include="Nhibernate\IMappingConfiguration.cs" />
     <Compile Include="Nhibernate\ITransactionBoundary.cs" />
     <Compile Include="Nhibernate\NHibernateSessionSource.cs" />
     <Compile Include="Nhibernate\NHibernateTransactionBoundary.cs" />
+    <Compile Include="Nhibernate\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\DomainRegistry.cs" />

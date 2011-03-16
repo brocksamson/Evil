@@ -21,7 +21,7 @@ namespace Evil.Web.UnitTests.Controllers
         public void Arrange()
         {
 
-            _login = new LoginView {EmailAddress = _emailAddress, Password = _password};
+            _login = new LoginModel {EmailAddress = _emailAddress, Password = _password};
             _mother = new ObjectMother();
             _account = _mother.GetAccountByEmailAddress(_emailAddress, _password);
             _currentPlayer = new Player
@@ -46,7 +46,7 @@ namespace Evil.Web.UnitTests.Controllers
         private const string _invalidEmailAddress = "notReal@test.com";
         private AccountController _controller;
         private InMemoryRepository<Account> _accountRepository;
-        private LoginView _login;
+        private LoginModel _login;
         private ObjectMother _mother;
         private Account _account;
         private IFormsService _formsService;
@@ -58,7 +58,7 @@ namespace Evil.Web.UnitTests.Controllers
         {
             _login.EmailAddress = "";
             var result = _controller.Login(_login);
-            result.IsModelErrorFor<LoginView>(m => m.EmailAddress);
+            result.IsModelErrorFor<LoginModel>(m => m.EmailAddress);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Evil.Web.UnitTests.Controllers
         {
             _login.Password = "";
             var result = _controller.Login(_login);
-            result.IsModelErrorFor<LoginView>(m => m.Password);
+            result.IsModelErrorFor<LoginModel>(m => m.Password);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Evil.Web.UnitTests.Controllers
         {
             _login.EmailAddress = "invalidEmail";
             var result = _controller.Login(_login);
-            result.IsModelErrorFor<LoginView>(m => m.EmailAddress);
+            result.IsModelErrorFor<LoginModel>(m => m.EmailAddress);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Evil.Web.UnitTests.Controllers
         {
             _login.Password = "WrongPassword";
             var result = _controller.Login(_login);
-            result.IsModelErrorFor<LoginView>(m => m.Password);
+            result.IsModelErrorFor<LoginModel>(m => m.Password);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Evil.Web.UnitTests.Controllers
         {
             _login.EmailAddress = _invalidEmailAddress;
             var result = _controller.Login(_login);
-            result.IsModelErrorFor<LoginView>(m => m.EmailAddress);
+            result.IsModelErrorFor<LoginModel>(m => m.EmailAddress);
         }
 
         [Test]

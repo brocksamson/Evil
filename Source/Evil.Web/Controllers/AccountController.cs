@@ -58,19 +58,19 @@ namespace Evil.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginView login)
+        public ActionResult Login(LoginModel login)
         {
             if (!ModelState.IsValid)
                 return View(login);
             Account account = _accountRepository.Get.ByEmailAddress(login.EmailAddress);
             if (account == null)
             {
-                ModelState.AddModelErrorFor<LoginView, string>(m => m.EmailAddress, "Unknown Email Address");
+                ModelState.AddModelErrorFor<LoginModel, string>(m => m.EmailAddress, "Unknown Email Address");
                 return View(login);
             }
             if (account.Password != login.Password)
             {
-                ModelState.AddModelErrorFor<LoginView, string>(m => m.Password, "Incorrect Password.");
+                ModelState.AddModelErrorFor<LoginModel, string>(m => m.Password, "Incorrect Password.");
                 return View(login);
             }
 

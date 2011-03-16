@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 using AutoMapper;
-using Evil.Bases;
 using Evil.Common;
+using Evil.Lairs;
 using Evil.Tests.Extensions;
+using Evil.Tests.TestHelpers;
 using Evil.Web.Controllers;
 using Evil.Web.Models;
 using MbUnit.Framework;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
+using MvcContrib.TestHelper;
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InconsistentNaming
@@ -21,26 +18,52 @@ namespace Evil.Web.UnitTests.Controllers.Lairs
     public class when_starting_a_bar
     {
         private LairController _controller;
-        private IRepository<Base> _baseRepository;
-        private Base _newBar;
-        private const int _barSectionId = 10;
+        private IRepository<Lair> _baseRepository;
+        private Lair _newLair;
         private const int _lairId = 1;
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    _newBar = CreateBar();
-        //    _baseRepository = MockRepository.GenerateMock<IRepository<Base>>();
-        //    _baseRepository.Stub(m => m.GetById(_lairId)).Return(_newBar);
-        //    _controller = new LairController(Mapper.Engine, _baseRepository);
-        //}
+        [SetUp]
+        public void SetUp()
+        {
+            _newLair = CreateNewBar();
+            _baseRepository = new InMemoryRepository<Lair>(_newLair);
+            _controller = new LairController(Mapper.Engine, _baseRepository);
+        }
 
-        //private static Base CreateBar()
-        //{
-        //    var myBase = new Base();
-        //    myBase.SetProperty(m => m.Id, _lairId);
-        //    return myBase;
-        //}
+        private static Lair CreateNewBar()
+        {
+            var myBase = new Lair();
+            myBase.SetProperty(m => m.Id, _lairId);
+            return myBase;
+        }
+
+        [Test]
+        public void Level_1_bar_should_have_1_available_upgrade()
+        {
+            var result = _controller.Details(_lairId).AssertViewRendered();
+            Assert.IsInstanceOfType<LairModel>(result.Model);
+            var lairView = result.Model as LairModel;
+            Assert.AreEqual(_lairId, lairView.Id);
+            Assert.AreEqual(1, lairView.AvailableUpgrades);
+        }
+
+        [Test]
+        public void Level_1_bar_with_one_upgrade_should_have_0_empty_sections()
+        {
+            
+        }
+
+        [Test]
+        public void Level_1_bar_should_be_upgradeable()
+        {
+            
+        }
+
+        [Test]
+        public void Level_1_bar_being_upgraded_should_not_be_upgradeable()
+        {
+            
+        }
 
 
         //[Test]
