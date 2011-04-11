@@ -53,7 +53,7 @@ namespace Evil.Web.Controllers
         {
             return new Lair
                        {
-                           Position = new Position(latitude, longitude),
+                           Location = new Position(latitude, longitude),
                            Name = model.BaseName
                        };
         }

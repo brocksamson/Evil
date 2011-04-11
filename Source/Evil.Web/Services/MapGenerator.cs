@@ -79,7 +79,7 @@ namespace Evil.Web.Services
             var locations = new Collection<GoogleLocation>();
             for (int i = 0; i < count; i++)
             {
-                var location = new GoogleLocation {Name = ("Position " + i)};
+                var location = new GoogleLocation {Name = ("Location " + i)};
                 double latitude = GenerateRandomDouble(upperLeft.Latitude, lowerRight.Latitude);
                 double longitude = GenerateRandomDouble(upperLeft.Longitude, lowerRight.Longitude);
                 location.Position = new Position(latitude, longitude);

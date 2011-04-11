@@ -5,6 +5,8 @@ using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Helpers;
+using FluentNHibernate.Conventions.Inspections;
+using FluentNHibernate.Mapping;
 
 namespace Evil.Infrastructure.Nhibernate
 {
@@ -42,10 +44,15 @@ namespace Evil.Infrastructure.Nhibernate
             {
                 return type == typeof(Entity);
             }
+
             public override bool ShouldMap(Type type)
             {
-                var assignableFrom = typeof(Entity).IsAssignableFrom(type);
-                return assignableFrom;
+                return typeof (Entity).IsAssignableFrom(type);
+            }
+
+            public override Access GetAccessStrategyForReadOnlyProperty(FluentNHibernate.Member member)
+            {
+                return Access.ReadOnlyPropertyThroughCamelCaseField(CamelCasePrefix.Underscore);
             }
         }
 

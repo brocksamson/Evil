@@ -61,6 +61,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\When_Testing_Equality_For_Entities_With_One_Domain_Signature.cs" />
+    <Compile Include="Lairs\When_adding_sections_to_a_lair.cs" />
     <Compile Include="TestHelpers\InMemoryRepository.cs" />
     <Compile Include="TestHelpers\ObjectExtensions.cs" />
     <Compile Include="Lairs\Bars\When_upgrading_the_bar.cs" />

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Evil.Common;
@@ -90,8 +90,8 @@ namespace Evil.Web.UnitTests.Controllers
         {
             Assert.IsNotNull(lair);
             Assert.AreEqual(lair.Name, _view.BaseName);
-            Assert.AreEqual(lair.Position.Latitude, _latitude);
-            Assert.AreEqual(lair.Position.Longitude, _longitude);
+            Assert.AreEqual(lair.Location.Latitude, _latitude);
+            Assert.AreEqual(lair.Location.Longitude, _longitude);
             //Assert.AreEqual(@base.Sections.Count(), Is.EqualTo(4));
             //Assert.AreEqual(@base.Sections.Any(m => m.GetType() == typeof(BarSection)), Is.True, "No bar section found");
             //Assert.AreEqual(@base.Sections.Where(m => m.GetType() == typeof(EmptySection)).Count(), Is.EqualTo(3), "Base should have 3 empty sections");
