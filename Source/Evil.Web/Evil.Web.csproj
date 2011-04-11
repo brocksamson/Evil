@@ -72,6 +72,7 @@
     <Compile Include="ActionFilters\InGameAttribute.cs" />
     <Compile Include="Binders\AccountBinder.cs" />
     <Compile Include="Binders\DefaultSortAttribute.cs" />
+    <Compile Include="Binders\EntityBinder.cs" />
     <Compile Include="Binders\FilteredModelBinder.cs" />
     <Compile Include="Binders\IFilteredModelBinder.cs" />
     <Compile Include="Binders\PlayerBinder.cs" />

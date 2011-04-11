@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\When_infiltrating_a_bar.cs" />
     <Compile Include="Common\TestObjects.cs" />
     <Compile Include="Common\When_Getting_HashCodes_For_Entities_With_Complex_Domain_Signature.cs" />
     <Compile Include="Common\When_Getting_HashCodes_For_Entities_With_Inherited_Domain_Signature.cs">

@@ -68,6 +68,7 @@
     <Compile Include="ActionFilters\when_player_must_be_in_a_game.cs" />
     <Compile Include="Binders\BaseBinderTest.cs" />
     <Compile Include="Binders\when_binding_account.cs" />
+    <Compile Include="Binders\When_binding_an_entity.cs" />
     <Compile Include="Binders\when_binding_player.cs" />
     <Compile Include="Binders\when_choosing_binder_based_on_model_filter.cs" />
     <Compile Include="Binders\when_sorting.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Services\when_getting_current_user_information.cs" />
     <Compile Include="TestHelpers\ActionResultExtensions.cs" />
     <Compile Include="TestHelpers\FakeController.cs" />
+    <Compile Include="TestHelpers\ListExtensions.cs" />
     <Compile Include="TestHelpers\ModelExtensions.cs" />
     <Compile Include="TestHelpers\ObjectMother.cs" />
     <Compile Include="TestHelpers\ValidationExtensions.cs" />
