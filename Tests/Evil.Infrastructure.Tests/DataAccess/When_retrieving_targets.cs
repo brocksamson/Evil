@@ -7,6 +7,7 @@ namespace Evil.Infrastructure.Tests.DataAccess
     public class When_retrieving_targets
     {
         [Test]
+        [Ignore("not implemented yet.")]
         public void Should_retrieve_valid_targets_for_player()
         {
             throw new NotImplementedException("see TargetQueries");

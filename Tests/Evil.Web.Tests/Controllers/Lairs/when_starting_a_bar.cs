@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Evil.Common;
 using Evil.Lairs;
@@ -15,6 +16,7 @@ using MvcContrib.TestHelper;
 namespace Evil.Web.UnitTests.Controllers.Lairs
 {
     [TestFixture]
+    [Ignore("need to implement this.")]
     public class when_starting_a_bar
     {
         private LairController _controller;
@@ -50,19 +52,19 @@ namespace Evil.Web.UnitTests.Controllers.Lairs
         [Test]
         public void Level_1_bar_with_one_upgrade_should_have_0_empty_sections()
         {
-            
+            throw new NotImplementedException();
         }
 
         [Test]
         public void Level_1_bar_should_be_upgradeable()
         {
-            
+            throw new NotImplementedException();
         }
 
         [Test]
         public void Level_1_bar_being_upgraded_should_not_be_upgradeable()
         {
-            
+            throw new NotImplementedException();
         }
 
 

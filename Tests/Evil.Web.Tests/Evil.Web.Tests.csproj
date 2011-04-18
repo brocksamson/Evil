@@ -79,6 +79,7 @@
     <Compile Include="Controllers\When_logging_in.cs" />
     <Compile Include="Controllers\when_robbing_a_bank.cs" />
     <Compile Include="Controllers\When_starting_a_game.cs" />
+    <Compile Include="Initialization\When_mapping_domain_to_view_model.cs" />
     <Compile Include="Initialization\When_setting_up_routes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\When_creating_a_mission_map.cs" />
