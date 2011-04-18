@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Evil.Web.Tests.TestHelpers
+namespace Evil.TestHelpers
 {
     public static class ListExtensions
     {
