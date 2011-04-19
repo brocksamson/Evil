@@ -57,8 +57,8 @@ namespace Evil.Web.Tests.Binders
                                          ModelMetadata = new ModelMetadata(metaDataProvider, null, null, typeof(TestEntity), propertyName)
                                      };
             _entityBinder.BindModel(controllerContext, bindingContext);
-            var requestedType = _resolver.GetArgumentsForCallsMadeOn(m => m.GetService(null)).First<Type>();
-            var requestedId = _repository.GetArgumentsForCallsMadeOn(m => m.GetById(0)).First<int>();
+            var requestedType = _resolver.GetArgumentsForCallsMadeOn(m => m.GetService(null)).FirstOf<Type>();
+            var requestedId = _repository.GetArgumentsForCallsMadeOn(m => m.GetById(0)).FirstOf<int>();
             Assert.AreEqual(typeof(IRepository<TestEntity>), requestedType);
             Assert.AreEqual(id, requestedId);
         }

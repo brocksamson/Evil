@@ -68,6 +68,7 @@ namespace Evil.Tests.Agents
             missionDetails.SetProperty(m => m.MissionStart, DateTime.Now.AddHours(-1));
             var missionReport = _mission.Complete(_agent, _enemyBar);
             //_dice.GetArgumentsForCallsMadeOn(m => m.RollPercentage(0)).First<decimal>();
+            throw new NotImplementedException();
         }
 
         [Test]
@@ -79,7 +80,8 @@ namespace Evil.Tests.Agents
         [Test]
         public void Should_have_25_percent_chance_to_infiltrate_second_try()
         {
-            var missionDetails = _mission.Begin(_agent, _enemyBar);            
+            var missionDetails = _mission.Begin(_agent, _enemyBar);    
+            throw new NotImplementedException();
         }
 
         [Test]

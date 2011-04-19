@@ -7,6 +7,9 @@ namespace Evil.Missions
 {
     public class InfiltrationMission
     {
+        public delegate void MissionCompleteddHandler(MissionOutcome missionOutcome);
+        public delegate void MissionStartedHandler(MissionDetails missionDetails);
+
         public event MissionStartedHandler MissionStarted;
         public event MissionCompleteddHandler MissionCompleted;
         private readonly IDice _dice;
@@ -33,13 +36,13 @@ namespace Evil.Missions
         private void OnMissionStarted(MissionDetails details)
         {
             if(MissionStarted != null)
-                MissionStarted(this, details);
+                MissionStarted(details);
         }
 
         private void OnMissionCompleted(MissionOutcome outcome)
         {
             if (MissionCompleted != null)
-                MissionCompleted(this, outcome);
+                MissionCompleted(outcome);
         }
 
         public MissionOutcome Complete(Agent agent, Lair target)
@@ -50,12 +53,5 @@ namespace Evil.Missions
             return outcome;
         }
 
-    }
-
-    public delegate void MissionCompleteddHandler(object sender, MissionOutcome missionOutcome);
-    public delegate void MissionStartedHandler(object sender, MissionDetails missionDetails);
-
-    public class MissionOutcome
-    {
     }
 }

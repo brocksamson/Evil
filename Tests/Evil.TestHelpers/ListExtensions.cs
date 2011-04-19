@@ -6,12 +6,12 @@ namespace Evil.TestHelpers
 {
     public static class ListExtensions
     {
-        public static T First<T>(this IList<object[]> source)
+        public static T FirstOf<T>(this IList<object[]> source)
         {
-            return All<T>(source).FirstOrDefault();
+            return AllOf<T>(source).FirstOrDefault();
         }
 
-        public static IEnumerable<T> All<T>(this IList<object[]> source)
+        public static IEnumerable<T> AllOf<T>(this IList<object[]> source)
         {
             if (source == null || source.Count == 0) return new Collection<T>();
 

@@ -72,7 +72,7 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="DataAccess\When_retrieving_account.cs" />
     <Compile Include="DataAccess\When_retrieving_targets.cs" />
-    <Compile Include="EventWiring\IocEventAutoWiring.cs" />
+    <Compile Include="EventWiring\When_instantiating_services_via_ioc_wire_events.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\DbTest.cs" />
     <Compile Include="Schema\Generate_schema.cs" />

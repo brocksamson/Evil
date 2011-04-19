@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Evil.Events;
 using Evil.TestHelpers;
 using MbUnit.Framework;
 using Rhino.Mocks;
@@ -8,11 +9,11 @@ using StructureMap;
 namespace Evil.Infrastructure.Tests.EventWiring
 {
     [TestFixture]
-    public class When_instantiating_services_via_Ioc_wire_events
+    public class When_instantiating_services_via_ioc_wire_events
     {
         private AutoEventGlue<FakeEventSource> _autoWire;
         private FakeEventSource _source;
-        private IHandler<EventArgs> _fakeEventHandler;
+        private IHandler<FakeEventHandlerArgs> _fakeEventHandler;
         private IContainer _container;
 
         [Test]
@@ -31,8 +32,10 @@ namespace Evil.Infrastructure.Tests.EventWiring
         public void Arrange()
         {
             _source = new FakeEventSource();
-            _fakeEventHandler = MockRepository.GenerateMock<IHandler<EventArgs>>();
+            _fakeEventHandler = MockRepository.GenerateMock<IHandler<FakeEventHandlerArgs>>();
             _container = MockRepository.GenerateMock<IContainer>();
+            _container.Stub(m => m.GetAllInstances(typeof (IHandler<FakeEventHandlerArgs>)))
+                .Return(new List<IHandler<FakeEventHandlerArgs>> {_fakeEventHandler});
             _autoWire = new AutoEventGlue<FakeEventSource>(_container);
         }
 
@@ -43,55 +46,37 @@ namespace Evil.Infrastructure.Tests.EventWiring
 
             const int input = 233;
             _source.Execute(input);
-            var args = _fakeEventHandler.GetArgumentsForCallsMadeOn(m => m.Execute(null)).First<FakeEventHandlerArgs>();
+            var args = _fakeEventHandler.GetArgumentsForCallsMadeOn(m => m.Handle(null)).FirstOf<FakeEventHandlerArgs>();
             Assert.AreEqual(input, args.Input);
         }
-    }
 
-    public class AutoEventGlue<TSource>
-    {
-        private readonly IContainer _container;
-
-        public AutoEventGlue(IContainer container)
+        [Test]
+        public void Will_only_auto_wire_same_signature()
         {
-            _container = container;
+            throw new NotImplementedException();
         }
 
-        public void GenerateHandlers(TSource source)
+        [Test]
+        public void Should_wire_up_fast()
         {
-            var sourceType = typeof (TSource);
-
-            foreach (var eventInfo in sourceType.GetEvents())
-            {
-
-                var eventSignature = eventInfo.GetAddMethod();
-                foreach (var parameterInfo in eventSignature.GetParameters())
-                {
-                    Console.WriteLine(parameterInfo.ParameterType.Name);
-                }
-            }
+            throw new NotImplementedException();            
         }
-    }
-
-    public interface IHandler<in T> where T : EventArgs
-    {
-        void Execute(T args);
     }
 
     public class FakeEventSource
     {
-        public delegate void FakeEventHandler(object sender, FakeEventHandlerArgs args);
+        public delegate void FakeEventHandler(FakeEventHandlerArgs args);
 
         public event FakeEventHandler FakeEvent;
 
         public void Execute(int input)
         {
             if(FakeEvent != null)
-                FakeEvent(this, new FakeEventHandlerArgs{Input = input});
+                FakeEvent(new FakeEventHandlerArgs{Input = input});
         }
     }
 
-    public class FakeEventHandlerArgs : EventArgs
+    public class FakeEventHandlerArgs : IEventSource
     {
         public int Input { get; set; }
     }

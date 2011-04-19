@@ -69,9 +69,4 @@ namespace Evil.Lairs
             CurrentLevel++;
         }
     }
-
-    public abstract class Section : Entity
-    {
-        
-    }
 }
