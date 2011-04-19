@@ -7,7 +7,7 @@ namespace Evil.Web.Initialization
     {
         public void Execute()
         {
-            Mapper.Initialize(config => config.AddProfile(new LairModelProfile()));
+            Mapper.Initialize(config => config.AddProfile(new ModelProfile()));
         }
     }
 }

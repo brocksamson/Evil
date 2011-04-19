@@ -79,13 +79,13 @@
     <Compile Include="Controllers\When_logging_in.cs" />
     <Compile Include="Controllers\when_robbing_a_bank.cs" />
     <Compile Include="Controllers\When_starting_a_game.cs" />
+    <Compile Include="Initialization\When_mapping_domain_to_view_model.cs" />
     <Compile Include="Initialization\When_setting_up_routes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\When_creating_a_mission_map.cs" />
     <Compile Include="Services\when_getting_current_user_information.cs" />
     <Compile Include="TestHelpers\ActionResultExtensions.cs" />
     <Compile Include="TestHelpers\FakeController.cs" />
-    <Compile Include="TestHelpers\ListExtensions.cs" />
     <Compile Include="TestHelpers\ModelExtensions.cs" />
     <Compile Include="TestHelpers\ObjectMother.cs" />
     <Compile Include="TestHelpers\ValidationExtensions.cs" />
@@ -103,6 +103,10 @@
     <ProjectReference Include="..\..\Source\Evil\Evil.csproj">
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>
       <Name>Evil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evil.TestHelpers\Evil.TestHelpers.csproj">
+      <Project>{FDA43589-2249-4589-B562-880208BF162D}</Project>
+      <Name>Evil.TestHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Evil.Tests\Evil.Tests.csproj">
       <Project>{EDF38BB2-2C0A-4160-8E7A-35840EFE6A21}</Project>

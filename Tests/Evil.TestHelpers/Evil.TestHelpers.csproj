@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6165284F-F779-42B6-B599-7D5059F335DE}</ProjectGuid>
+    <ProjectGuid>{FDA43589-2249-4589-B562-880208BF162D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Evil</RootNamespace>
-    <AssemblyName>Evil</AssemblyName>
+    <RootNamespace>Evil.TestHelpers</RootNamespace>
+    <AssemblyName>Evil.TestHelpers</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,25 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agents\Agent.cs" />
-    <Compile Include="Engine\IDice.cs" />
-    <Compile Include="Lairs\Lair.cs" />
-    <Compile Include="Common\Area.cs" />
-    <Compile Include="Common\Entity.cs" />
-    <Compile Include="Common\IRepository.cs" />
-    <Compile Include="Common\IStartupTask.cs" />
-    <Compile Include="Common\Position.cs" />
-    <Compile Include="Common\Target.cs" />
-    <Compile Include="Common\TargetQueries.cs" />
-    <Compile Include="Missions\MissionDetails.cs" />
-    <Compile Include="Missions\InfiltrationMission.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\Account.cs" />
-    <Compile Include="Users\AccountQueries.cs" />
-    <Compile Include="Users\Player.cs" />
-    <Compile Include="Users\PlayerQueries.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

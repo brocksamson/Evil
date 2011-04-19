@@ -5,11 +5,11 @@ using Evil.Web.Models;
 
 namespace Evil.Web.Initialization
 {
-    public class LairModelProfile : Profile
+    public class ModelProfile : Profile
     {
         protected override void Configure()
         {
-            this.CreateMap<Lair, LairModel>();
+            CreateMap<Lair, LairModel>();
         }
     }
 }

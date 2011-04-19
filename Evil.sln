@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Web", "Source\Evil.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.Web.Tests", "Tests\Evil.Web.Tests\Evil.Web.Tests.csproj", "{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evil.TestHelpers", "Tests\Evil.TestHelpers\Evil.TestHelpers.csproj", "{FDA43589-2249-4589-B562-880208BF162D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA43589-2249-4589-B562-880208BF162D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA43589-2249-4589-B562-880208BF162D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA43589-2249-4589-B562-880208BF162D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA43589-2249-4589-B562-880208BF162D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +59,6 @@ Global
 		{EDF38BB2-2C0A-4160-8E7A-35840EFE6A21} = {E6DD8438-667E-4D59-B6A9-001708857B68}
 		{417055B8-1972-4977-89E8-F206E597CF9A} = {E6DD8438-667E-4D59-B6A9-001708857B68}
 		{FC8279EB-6BE6-4CDD-8F8E-8D3D653FB2AA} = {E6DD8438-667E-4D59-B6A9-001708857B68}
+		{FDA43589-2249-4589-B562-880208BF162D} = {E6DD8438-667E-4D59-B6A9-001708857B68}
 	EndGlobalSection
 EndGlobal
