@@ -7,6 +7,8 @@ namespace Evil.Missions
 {
     public class InfiltrationMission
     {
+        public event MissionStartedHandler MissionStarted;
+        public event MissionCompleteddHandler MissionCompleted;
         private readonly IDice _dice;
 
         public InfiltrationMission(IDice dice)
@@ -24,16 +26,34 @@ namespace Evil.Missions
                            DiscoveryChance = .05M
                        };
             agent.BeginMission(details);
+            OnMissionStarted(details);
             return details;
+        }
+
+        private void OnMissionStarted(MissionDetails details)
+        {
+            if(MissionStarted != null)
+                MissionStarted(this, details);
+        }
+
+        private void OnMissionCompleted(MissionOutcome outcome)
+        {
+            if (MissionCompleted != null)
+                MissionCompleted(this, outcome);
         }
 
         public MissionOutcome Complete(Agent agent, Lair target)
         {
             var outcome = new MissionOutcome();
             agent.CompleteMission(outcome);
+            OnMissionCompleted(outcome);
             return outcome;
         }
+
     }
+
+    public delegate void MissionCompleteddHandler(object sender, MissionOutcome missionOutcome);
+    public delegate void MissionStartedHandler(object sender, MissionDetails missionDetails);
 
     public class MissionOutcome
     {

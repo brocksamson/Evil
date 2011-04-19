@@ -1,0 +1,17 @@
+﻿using AutoMapper;
+using Evil.Common;
+
+namespace Evil.Web.Initialization
+{
+    public class RegisterMaps :IStartupTask
+    {
+        public void Execute()
+        {
+<<<<<<< HEAD
+            Mapper.Initialize(config => config.AddProfile(new LairModelProfile()));
+=======
+            Mapper.Initialize(config => config.AddProfile(new ModelProfile()));
+>>>>>>> 7988cc517c5f051d29c6c16bbc110fe5918647b5
+        }
+    }
+}

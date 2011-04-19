@@ -1,0 +1,23 @@
+﻿using System;
+using AutoMapper;
+using Evil.Lairs;
+using Evil.Web.Models;
+
+namespace Evil.Web.Initialization
+{
+<<<<<<< HEAD:Source/Evil.Web/Initialization/ListModelProfile.cs
+    public class LairModelProfile : Profile
+    {
+        protected override void Configure()
+        {
+            this.CreateMap<Lair, LairModel>();
+=======
+    public class ModelProfile : Profile
+    {
+        protected override void Configure()
+        {
+            CreateMap<Lair, LairModel>();
+>>>>>>> 7988cc517c5f051d29c6c16bbc110fe5918647b5:Source/Evil.Web/Initialization/ModelProfile.cs
+        }
+    }
+}
