@@ -9,7 +9,7 @@ namespace Evil.Web.Extensions
 {
     public static class HtmlExtensions
     {
-        public static MvcHtmlString SortLinkFor<TObject>(this HtmlHelper helper, Expression<Func<TObject, object>> field,
+        public static MvcHtmlString SortLinkFor<TObject, TField>(this HtmlHelper helper, Expression<Func<TObject, TField>> field,
                                                    string linkText)
         {
             var sorter = (ISortParameters) helper.ViewData[SortableBinder.Constants.SorterName];
