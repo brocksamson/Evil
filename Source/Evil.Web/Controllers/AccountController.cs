@@ -48,13 +48,7 @@ namespace Evil.Web.Controllers
                              };
             _accountRepository.Save(player);
             //TODO: Enable email activation
-            //return this.RedirectToAction(c => c.Created());
-            return RedirectToAction("Start", "Game");
-        }
-
-        public ActionResult Created()
-        {
-            return View();
+            return this.RedirectToAction<GameController>(m => m.Start());
         }
 
         [HttpPost]
@@ -77,8 +71,8 @@ namespace Evil.Web.Controllers
             _formsService.SignIn(login.EmailAddress, login.RememberMe);
             var player = _playerRepository.Get.CurrentPlayerFor(account);
             if (player == null || player.Account == null || player.Account != account)
-                return RedirectToAction("Start", "Game");
-            return RedirectToAction("Index", "Game");
+                return this.RedirectToAction<GameController>(m => m.Start());
+            return this.RedirectToAction<GameController>(m => m.Index());
         }
 
         public ActionResult Login()

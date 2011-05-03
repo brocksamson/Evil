@@ -10,8 +10,8 @@ using Evil.Web.Models;
 using Evil.Web.Services;
 using MbUnit.Framework;
 using Rhino.Mocks;
+using MvcContrib.TestHelper;
 
-// ReSharper disable InconsistentNaming
 // ReSharper disable PossibleNullReferenceException
 
 namespace Evil.Web.UnitTests.Controllers
@@ -34,7 +34,7 @@ namespace Evil.Web.UnitTests.Controllers
             _player = new Player();
 
             _mapGenerator = MockRepository.GenerateMock<IMapGenerator>();
-            _mapGenerator.Expect(m => m.GenerateTargetMap(_targets)).Return(_map);
+            _mapGenerator.Expect(m => m.GenerateTargetMap(null)).Return(_map).IgnoreArguments();
 
             _targetRepository = new InMemoryRepository<Target>(_targets);
             _controller = new MissionController(_mapGenerator, _targetRepository);
@@ -43,15 +43,13 @@ namespace Evil.Web.UnitTests.Controllers
         [Test]
         public void returns_map_data()
         {
-            var result = _controller.GetMissions(_player, MissionTypes.All);
-            Assert.IsInstanceOfType<JsonResult>(result);
-            var viewResult = result as JsonResult;
-            Assert.IsInstanceOfType<GoogleMap>(viewResult.Data);
-            _targetRepository.AssertWasCalled(m => m.Get.ValidTargetsFor(_player));
-            _mapGenerator.AssertWasCalled(m => m.GenerateTargetMap(_targets));
+            var result = _controller.GetMissions(_player, MissionTypes.All).AssertResultIs<JsonResult>();
+            Assert.IsInstanceOfType<GoogleMap>(result.Data);
+            var mapResult = result.Data as GoogleMap;
+            Assert.AreEqual(mapResult.StartingPosition, _map.StartingPosition);
+            Assert.AreEqual(mapResult.Locations, _map.Locations);
         }
     }
 }
 
-// ReSharper restore InconsistentNaming
 // ReSharper restore PossibleNullReferenceException
