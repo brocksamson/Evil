@@ -72,6 +72,7 @@
     <Compile Include="ActionFilters\InGameAttribute.cs" />
     <Compile Include="Binders\AccountBinder.cs" />
     <Compile Include="Binders\DefaultSortAttribute.cs" />
+    <Compile Include="Binders\EntityBinder.cs" />
     <Compile Include="Binders\FilteredModelBinder.cs" />
     <Compile Include="Binders\IFilteredModelBinder.cs" />
     <Compile Include="Binders\PlayerBinder.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\ListModelProfile.cs" />
+    <Compile Include="Initialization\ModelProfile.cs" />
     <Compile Include="Initialization\ModelBinderInitializer.cs" />
     <Compile Include="Initialization\RegisterAreas.cs" />
     <Compile Include="Initialization\RegisterDependencyResolver.cs" />
@@ -101,11 +102,11 @@
     <Compile Include="Initialization\WebRegistry.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AgentView.cs" />
-    <Compile Include="Models\BaseView.cs" />
+    <Compile Include="Models\LairModel.cs" />
     <Compile Include="Models\CreatePlayerView.cs" />
     <Compile Include="Models\GoogleLocation.cs" />
     <Compile Include="Models\GoogleMap.cs" />
-    <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HttpSession.cs" />
     <Compile Include="Services\IFormsService.cs" />

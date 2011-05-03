@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Evil.Agents;
 using Evil.Common;
 using Evil.Users;
 using Evil.Web.ActionFilters;
@@ -39,6 +40,12 @@ namespace Evil.Web.Controllers
         public ActionResult Details()
         {
             return PartialView();
+        }
+
+        [HttpGet]
+        public void Infiltrate(Agent entity)
+        {
+            
         }
     }
 

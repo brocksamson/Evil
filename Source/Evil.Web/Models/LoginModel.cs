@@ -1,6 +1,6 @@
 namespace Evil.Web.Models
 {
-    public class LoginView
+    public class LoginModel
     {
         public string EmailAddress { get; set; }
 

@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using Evil.Bases;
 using Evil.Common;
+using Evil.Lairs;
 using Evil.Users;
 using Evil.Web.Controllers;
 using Evil.Web.Models;
@@ -83,15 +83,15 @@ namespace Evil.Web.UnitTests.Controllers
             var count = 0;
             Assert.AreEqual(player.Agents.Count(), 0);
             Assert.AreEqual(player.Account, _account);
-            AssertStartupBase(player.MainBase);
+            AssertStartupBase(player.MainLair);
         }
 
-        private void AssertStartupBase(Base @base)
+        private void AssertStartupBase(Lair lair)
         {
-            Assert.IsNotNull(@base);
-            Assert.AreEqual(@base.Name, _view.BaseName);
-            Assert.AreEqual(@base.Position.Latitude, _latitude);
-            Assert.AreEqual(@base.Position.Longitude, _longitude);
+            Assert.IsNotNull(lair);
+            Assert.AreEqual(lair.Name, _view.BaseName);
+            Assert.AreEqual(lair.Location.Latitude, _latitude);
+            Assert.AreEqual(lair.Location.Longitude, _longitude);
             //Assert.AreEqual(@base.Sections.Count(), Is.EqualTo(4));
             //Assert.AreEqual(@base.Sections.Any(m => m.GetType() == typeof(BarSection)), Is.True, "No bar section found");
             //Assert.AreEqual(@base.Sections.Where(m => m.GetType() == typeof(EmptySection)).Count(), Is.EqualTo(3), "Base should have 3 empty sections");

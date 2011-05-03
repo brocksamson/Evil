@@ -1,13 +1,15 @@
 ﻿using System;
 using AutoMapper;
+using Evil.Lairs;
+using Evil.Web.Models;
 
 namespace Evil.Web.Initialization
 {
-    public class ListModelProfile : Profile
+    public class ModelProfile : Profile
     {
         protected override void Configure()
         {
-            throw new NotImplementedException();
+            CreateMap<Lair, LairModel>();
         }
     }
 }

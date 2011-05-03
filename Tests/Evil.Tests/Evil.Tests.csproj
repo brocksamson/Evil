@@ -33,6 +33,9 @@
   <ItemGroup>
     <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\When_infiltrating_a_bar.cs" />
     <Compile Include="Common\TestObjects.cs" />
     <Compile Include="Common\When_Getting_HashCodes_For_Entities_With_Complex_Domain_Signature.cs" />
     <Compile Include="Common\When_Getting_HashCodes_For_Entities_With_Inherited_Domain_Signature.cs">
@@ -61,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\When_Testing_Equality_For_Entities_With_One_Domain_Signature.cs" />
+    <Compile Include="Lairs\When_adding_sections_to_a_lair.cs" />
     <Compile Include="TestHelpers\InMemoryRepository.cs" />
     <Compile Include="TestHelpers\ObjectExtensions.cs" />
     <Compile Include="Lairs\Bars\When_upgrading_the_bar.cs" />
@@ -71,6 +76,9 @@
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>
       <Name>Evil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

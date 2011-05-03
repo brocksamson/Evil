@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 using AutoMapper;
-using Evil.Bases;
 using Evil.Common;
+using Evil.Lairs;
 using Evil.Tests.Extensions;
+using Evil.Tests.TestHelpers;
 using Evil.Web.Controllers;
 using Evil.Web.Models;
 using MbUnit.Framework;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
+using MvcContrib.TestHelper;
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InconsistentNaming
@@ -18,70 +16,90 @@ using Rhino.Mocks.Constraints;
 namespace Evil.Web.UnitTests.Controllers.Lairs
 {
     [TestFixture]
+    [Ignore("need to implement this.")]
     public class when_starting_a_bar
     {
         private LairController _controller;
-        private IRepository<Base> _baseRepository;
-        private Base _newBar;
-        private const int _barSectionId = 10;
+        private IRepository<Lair> _baseRepository;
+        private Lair _newLair;
         private const int _lairId = 1;
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    _newBar = CreateBar();
-        //    _baseRepository = MockRepository.GenerateMock<IRepository<Base>>();
-        //    _baseRepository.Stub(m => m.GetById(_lairId)).Return(_newBar);
-        //    _controller = new LairController(Mapper.Engine, _baseRepository);
-        //}
+        [SetUp]
+        public void SetUp()
+        {
+            _newLair = CreateNewBar();
+            _baseRepository = new InMemoryRepository<Lair>(_newLair);
+            _controller = new LairController(Mapper.Engine, _baseRepository);
+        }
 
-        //private static Base CreateBar()
-        //{
-        //    var myBase = new Base();
-        //    myBase.SetProperty(m => m.Id, _lairId);
-        //    return myBase;
-        //}
+        private static Lair CreateNewBar()
+        {
+            var lair = new Lair();
+            lair.SetProperty(m => m.Id, _lairId);
+            return lair;
+        }
+
+        private LairModel Act()
+        {
+            var result = _controller.Details(_lairId).AssertViewRendered();
+            Assert.IsInstanceOfType<LairModel>(result.Model);
+            var lairModel = result.Model as LairModel;
+            Assert.AreEqual(_lairId, lairModel.Id);
+            return lairModel;
+        }
+
+        [Test]
+        public void Level_1_bar_should_have_1_empty_section()
+        {
+            var lairModel = Act();
+            Assert.AreEqual(1, lairModel.EmptySections);
+        }
 
 
-        //[Test]
-        //public void should_get_list_of_empty_sections()
-        //{
-        //    var bar = Act();
-        //    //Assert.That(bar.Sections.Where(section => section.Type == SectionType.Empty).Count(), Is.EqualTo(3), "bar should start with 3 empty sections");
-        //    Assert.AreEqual(bar.Id, _lairId);
-        //    //foreach (var section in _newBar.Sections)
-        //    //{
-        //    //    Assert.That(bar.Sections.Any(m => m.Id == section.Id), "Missing section");
-        //    //}
-        //}
+        [Test]
+        public void Level_1_bar_with_1_filled_section_should_have_0_available_upgrades()
+        {
+            _newLair.AddSection(new FakeSection());
+            var lairModel = Act();
+            Assert.AreEqual(0, lairModel.EmptySections);
+        }
 
-        //private BaseView Act()
-        //{
-        //    var result = _controller.Details(_lairId);
-        //    var view = result as ViewResult;
-        //    Assert.IsInstanceOfType<ViewResult>(result);
-        //    Assert.IsInstanceOfType<BaseView>(view.ViewData.Model);
-        //    return view.ViewData.Model as BaseView;
-        //}
+        [Test]
+        public void Level_1_bar_should_be_upgradeable()
+        {
+            var lairModel = Act();
+            Assert.IsTrue(lairModel.CanUpgrade);
+        }
 
-        //[Test]
-        //public void should_list_upgrades_correctly()
-        //{
-        //    var bar = Act();
-        //    var actualBarSection = GetBarSection(bar);
-        //    Assert.That(actualBarSection.CanUpgrade, Is.True);
-        //    foreach(var section in bar.Sections.Where(m => m.Type == SectionType.Empty))
-        //    {
-        //        Assert.That(section.CanUpgrade, Is.False);
-        //    }
-            
-        //}
+        [Test]
+      //  [Row()]
+        public void Level_1_bar_allowed_sections()
+        {
+            var lairModel = Act();
+            Assert.Contains(lairModel.AllowedSections, SectionType.Game);
+        }
 
-        //private SectionView GetBarSection(BaseView bar)
-        //{
-        //    var expectedBarSection = _newBar.Sections.GetSection<BarSection>();
-        //    return bar.Sections.First(m => m.Id == expectedBarSection.Id);
-        //}
+        [Test]
+        public void Level_1_bar_can_add_security_section()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void Bar_being_upgraded_should_not_be_upgradeable()
+        {
+            _newLair.BeginUpgrade();
+            var lairModel = Act();
+            Assert.IsFalse(lairModel.CanUpgrade);
+        }
+
+        [Test]
+        public void Bar_being_upgraded_should_report_time_till_upgraded()
+        {
+            _newLair.BeginUpgrade();
+            var lairModel = Act();
+            Assert.GreaterThan(lairModel.UpgradeFinished, DateTime.Now);
+        }
 
         //[Test]
         //public void should_be_able_to_assign_bar_tender()
@@ -118,6 +136,10 @@ namespace Evil.Web.UnitTests.Controllers.Lairs
         //        Assert.That(job.AssignedAgent, Is.Null);
         //    }
         //}
+    }
+
+    public class FakeSection : Section
+    {
     }
 
     //public static class SectionExtensions
