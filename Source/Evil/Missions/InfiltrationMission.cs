@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Evil.Agents;
 using Evil.Engine;
 using Evil.Lairs;
@@ -19,18 +20,43 @@ namespace Evil.Missions
             _dice = dice;
         }
 
-        public MissionDetails Begin(Agent agent, Lair target)
+        public void Begin(Agent agent, Lair target)
         {
             var details = new MissionDetails
                        {
                            MissionStart = DateTime.Now,
                            MissionDuration = new TimeSpan(1, 0, 0),
-                           SuccessChance = .2M,
-                           DiscoveryChance = .05M
+                           SuccessChance = CalculateSuccessChance(agent, target),
+                           DiscoveryChance = CalculateDiscoveryChance(agent, target),
+                           Target = target
                        };
             agent.BeginMission(details);
             OnMissionStarted(details);
-            return details;
+        }
+
+
+        public void Complete(Agent agent)
+        {
+            if (agent.CurrentMission == null) throw new ArgumentException("Could not complete a mission, agent is currently idle.");
+            var outcome = new MissionOutcome
+                              {
+                                  Success = _dice.RollPercentage(agent.CurrentMission.SuccessChance),
+                                  Discovered = _dice.RollPercentage(agent.CurrentMission.DiscoveryChance)
+                              };
+            agent.CompleteMission(outcome);
+            OnMissionCompleted(outcome);
+        }
+
+        private static decimal CalculateDiscoveryChance(Agent agent, Lair target)
+        {
+            var tries = agent.MissionHistory.Count(query => query.Target == target);
+            return .05M + (.05M * tries);
+        }
+
+        private static decimal CalculateSuccessChance(Agent agent, Lair target)
+        {
+            var tries = agent.MissionHistory.Count(query => query.Target == target);
+            return .20M + (.05M*tries);
         }
 
         private void OnMissionStarted(MissionDetails details)
@@ -44,14 +70,5 @@ namespace Evil.Missions
             if (MissionCompleted != null)
                 MissionCompleted(outcome);
         }
-
-        public MissionOutcome Complete(Agent agent, Lair target)
-        {
-            var outcome = new MissionOutcome();
-            agent.CompleteMission(outcome);
-            OnMissionCompleted(outcome);
-            return outcome;
-        }
-
     }
 }

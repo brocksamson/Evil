@@ -45,6 +45,7 @@
     <Compile Include="Common\EntityWithTypedId.cs" />
     <Compile Include="Engine\IDice.cs" />
     <Compile Include="Events\IHandler.cs" />
+    <Compile Include="Agents\Jobs\Embezzle.cs" />
     <Compile Include="Lairs\Lair.cs" />
     <Compile Include="Common\Area.cs" />
     <Compile Include="Common\Entity.cs" />

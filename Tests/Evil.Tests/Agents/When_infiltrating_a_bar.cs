@@ -1,36 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Evil.Agents;
 using Evil.Common;
 using Evil.Engine;
 using Evil.Lairs;
 using Evil.Missions;
 using Evil.Tests.Extensions;
-using Gallio.Framework;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
 using Rhino.Mocks;
 
 namespace Evil.Tests.Agents
 {
-    [TestFixture]
-    public class When_infiltrating_a_bar_with_a_generic_agent
+    public class InfiltrationMissionBase
     {
-        private Lair _enemyBar;
-        private InfiltrationMission _mission;
-        private Agent _agent;
-        private IDice _dice;
+        protected Lair _enemyBar;
+        protected InfiltrationMission _mission;
+        protected Agent _agent;
+        protected IDice _dice;
 
         [SetUp]
-        public void Arrange()
+        public void SetUp()
         {
             _enemyBar = new Lair();
             _agent = new Agent();
-            _dice = MockRepository.GenerateMock<IDice>();
+            _dice = MockRepository.GenerateStub<IDice>();
             _mission = new InfiltrationMission(_dice);
+            Arrange();
         }
 
+        protected virtual void Arrange()
+        {
+            
+        }
+
+        protected void AddMissions(int count)
+        {
+            for (var i = 1; i < count; i++)
+            {
+                _agent.MissionHistory.Add(new MissionOutcome
+                                              {
+                                                  Success = false,
+                                                  Target = _enemyBar,
+                                                  Agent = _agent,
+                                                  CompletionDate = DateTime.Now.AddHours(0-i)
+                                              });
+            }
+        }
+    }
+
+    [TestFixture]
+    public class When_infiltrating_a_bar_with_a_generic_agent : InfiltrationMissionBase
+    {
         [Test]
         public void Should_fail_if_agent_on_mission()
         {
@@ -42,7 +61,7 @@ namespace Evil.Tests.Agents
         [Test]
         public void Should_fail_to_complete_if_no_current_mission()
         {
-            Assert.Throws<ArgumentException>(() =>_mission.Complete(_agent, _enemyBar));
+            Assert.Throws<ArgumentException>(() =>_mission.Complete(_agent));
 
         }
 
@@ -50,46 +69,116 @@ namespace Evil.Tests.Agents
         public void Should_fail_if_agent_mission_not_ready_for_completion()
         {
             _agent.CurrentMission = new MissionDetails { MissionStart = DateTime.Now, MissionDuration = new TimeSpan(1, 0, 0) };
-            Assert.Throws<ArgumentException>(() => _mission.Complete(_agent, _enemyBar));
+            Assert.Throws<ArgumentException>(() => _mission.Complete(_agent));
         }
 
         [Test]
         public void Should_take_1_hour()
         {
-            var missionDetails = _mission.Begin(_agent, _enemyBar);
-            Assert.AreEqual(new TimeSpan(1,0,0), missionDetails.MissionDuration);
+            Act(missionDetails => Assert.AreEqual(new TimeSpan(1, 0, 0), missionDetails.MissionDuration));
+            
         }
 
         [Test]
-        public void Should_have_20_percent_chance_to_infiltrate()
+        [Row(.20, 1)]
+        [Row(.25, 2)]
+        [Row(.30, 3)]
+        [Row(.35, 4)]
+        [Row(.40, 5)]
+        [Row(.45, 6)]
+        public void Should_have_increasing_percent_chance_to_infiltrate(decimal chance, int attempt)
         {
-            var missionDetails = _mission.Begin(_agent, _enemyBar);
-            Assert.AreEqual(.20M, missionDetails.SuccessChance);
-            missionDetails.SetProperty(m => m.MissionStart, DateTime.Now.AddHours(-1));
-            var missionReport = _mission.Complete(_agent, _enemyBar);
-            //_dice.GetArgumentsForCallsMadeOn(m => m.RollPercentage(0)).First<decimal>();
-            throw new NotImplementedException();
+            AddMissions(attempt);
+            Act(missionDetails => Assert.AreEqual(chance, missionDetails.SuccessChance));
         }
 
         [Test]
-        public void Should_have_5_percent_chance_of_discovery()
+        [Row(.05, 1)]
+        [Row(.10, 2)]
+        [Row(.15, 3)]
+        [Row(.20, 4)]
+        public void Should_have_increasing_percent_chance_of_discovery(decimal chance, int attempt)
         {
-            throw new NotImplementedException();
-        }
-        
-        [Test]
-        public void Should_have_25_percent_chance_to_infiltrate_second_try()
-        {
-            var missionDetails = _mission.Begin(_agent, _enemyBar);    
-            throw new NotImplementedException();
+            AddMissions(attempt);
+            Act(missionDetails => Assert.AreEqual(chance, missionDetails.DiscoveryChance));
         }
 
         [Test]
-        public void Should_have_10_percent_chance_of_discovery_second_try()
+        public void Should_assign_target()
         {
-            throw new NotImplementedException();
+            Act(missionDetails => Assert.AreEqual(_enemyBar, missionDetails.Target));
         }
 
+
+        private void Act(InfiltrationMission.MissionStartedHandler assertions)
+        {
+            _mission.MissionStarted += assertions;
+            _mission.Begin(_agent, _enemyBar);
+        }
+    }
+
+    [TestFixture]
+    public class When_completing_infiltrating_a_bar_with_a_generic_agent : InfiltrationMissionBase
+    {
+        protected override void Arrange()
+        {
+            _agent.CurrentMission = new MissionDetails
+                                        {
+                                            DiscoveryChance = .20M,
+                                            MissionDuration = new TimeSpan(1, 0, 0),
+                                            MissionStart = DateTime.Now.AddHours(-1),
+                                            Target = _enemyBar,
+                                        };
+        }
+
+        [Test]
+        public void Should_fail_if_discovery_roll_fails_and_infiltrate_roll_fails()
+        {
+            _dice.Expect(m => m.RollPercentage(_agent.CurrentMission.SuccessChance)).Return(false);
+            _dice.Expect(m => m.RollPercentage(_agent.CurrentMission.DiscoveryChance)).Return(false);
+
+            Act(missionOutcome =>
+                    {
+                        Assert.IsFalse(missionOutcome.Success);
+                        Assert.IsFalse(missionOutcome.Discovered);
+                    });
+        }
+
+        [Test]
+        public void Should_infiltrate_if_infiltrate_roll_succeeds()
+        {
+            _dice.Expect(m => m.RollPercentage(_agent.CurrentMission.SuccessChance)).Return(true);
+
+            Act(missionOutcome =>
+                    {
+                        Assert.IsTrue(missionOutcome.Success);
+                        Assert.IsFalse(missionOutcome.Discovered);
+                        Assert.AreEqual(_enemyBar, missionOutcome.Target);
+                    });
+        }
+
+        [Test]
+        public void Should_be_discovered_if_discovery_roll_succeed()
+        {
+            _dice.Expect(m => m.RollPercentage(_agent.CurrentMission.SuccessChance)).Return(false);
+            _dice.Expect(m => m.RollPercentage(_agent.CurrentMission.DiscoveryChance)).Return(true);
+
+            Act(missionOutcome =>
+                    {
+                        Assert.IsFalse(missionOutcome.Success);
+                        Assert.IsTrue(missionOutcome.Discovered);
+                    });
+        }
+
+        private void Act(InfiltrationMission.MissionCompleteddHandler assertions)
+        {
+            var called = false;
+            _mission.MissionCompleted += missionOutcome => called = true;
+            _mission.MissionCompleted += assertions;
+            _mission.Complete(_agent);
+            _dice.VerifyAllExpectations();
+            Assert.IsTrue(called, "Mission Complete event not raised.");
+        }
     }
 
     public static class EntityExtensions

@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\Jobs\When_cleaning.cs" />
+    <Compile Include="Agents\Jobs\When_embezzling.cs" />
+    <Compile Include="Lairs\When_an_agent_is_captured.cs" />
+    <Compile Include="Agents\When_an_agent_is_discovered.cs" />
     <Compile Include="Agents\When_infiltrating_a_bar.cs" />
     <Compile Include="Common\TestObjects.cs" />
     <Compile Include="Common\When_Getting_HashCodes_For_Entities_With_Complex_Domain_Signature.cs" />
@@ -79,6 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lairs\Addons\Disposal\" />
+    <Folder Include="Lairs\Addons\Jail\" />
+    <Folder Include="Lairs\Addons\TortureChamber\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
