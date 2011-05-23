@@ -30,6 +30,7 @@ namespace Evil.Agents
             if(CurrentMission.MissionStart.Add(CurrentMission.MissionDuration) > DateTime.Now) throw new ArgumentNullException("Could not complete mission, duration not completed");
             outcome.Agent = this;
             outcome.Target = CurrentMission.Target;
+            CurrentMission = null;
             MissionHistory.Add(outcome);
         }
     }

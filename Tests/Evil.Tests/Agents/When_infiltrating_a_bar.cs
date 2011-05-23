@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using Evil.Agents;
 using Evil.Common;
 using Evil.Engine;
@@ -110,10 +111,14 @@ namespace Evil.Tests.Agents
         }
 
 
-        private void Act(InfiltrationMission.MissionStartedHandler assertions)
+        private void Act(Action<MissionDetails> assertions)
         {
-            _mission.MissionStarted += assertions;
+            var called = false;
+            _mission.Subscribe(Observer.Create(assertions));
+            _mission.Subscribe(Observer.Create<MissionDetails>(m => called = true));
             _mission.Begin(_agent, _enemyBar);
+            _dice.VerifyAllExpectations();
+            Assert.IsTrue(called, "Mission Complete event not raised.");
         }
     }
 
@@ -170,11 +175,19 @@ namespace Evil.Tests.Agents
                     });
         }
 
-        private void Act(InfiltrationMission.MissionCompleteddHandler assertions)
+        [Test]
+        public void Should_set_current_mission_to_null_after_completion()
+        {
+            _mission.Complete(_agent);
+            Assert.IsNull(_agent.CurrentMission);
+        }
+
+        
+        private void Act(Action<MissionOutcome> assertions)
         {
             var called = false;
-            _mission.MissionCompleted += missionOutcome => called = true;
-            _mission.MissionCompleted += assertions;
+            _mission.Subscribe(Observer.Create(assertions));
+            _mission.Subscribe(Observer.Create<MissionOutcome>(m => called = true));
             _mission.Complete(_agent);
             _dice.VerifyAllExpectations();
             Assert.IsTrue(called, "Mission Complete event not raised.");

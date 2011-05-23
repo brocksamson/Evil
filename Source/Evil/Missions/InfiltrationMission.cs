@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Evil.Agents;
 using Evil.Engine;
@@ -6,18 +7,18 @@ using Evil.Lairs;
 
 namespace Evil.Missions
 {
-    public class InfiltrationMission
+    //TODO: pretty sure this class isn't entirely setup per Rx best practices.  Need to review.
+    public class InfiltrationMission :IObservable<MissionDetails>, IObservable<MissionOutcome>, IDisposable
     {
-        public delegate void MissionCompleteddHandler(MissionOutcome missionOutcome);
-        public delegate void MissionStartedHandler(MissionDetails missionDetails);
-
-        public event MissionStartedHandler MissionStarted;
-        public event MissionCompleteddHandler MissionCompleted;
         private readonly IDice _dice;
+        private readonly List<IObserver<MissionOutcome>> _outcomeObservers;
+        private readonly List<IObserver<MissionDetails>> _detailObservers;
 
         public InfiltrationMission(IDice dice)
         {
             _dice = dice;
+            _outcomeObservers = new List<IObserver<MissionOutcome>>();
+            _detailObservers = new List<IObserver<MissionDetails>>();
         }
 
         public void Begin(Agent agent, Lair target)
@@ -61,14 +62,50 @@ namespace Evil.Missions
 
         private void OnMissionStarted(MissionDetails details)
         {
-            if(MissionStarted != null)
-                MissionStarted(details);
+            foreach (var observer in _detailObservers)
+            {
+                try
+                {
+                    observer.OnNext(details);
+                }
+                catch (Exception ex)
+                {
+                    observer.OnError(ex);
+                }
+            }
         }
 
         private void OnMissionCompleted(MissionOutcome outcome)
         {
-            if (MissionCompleted != null)
-                MissionCompleted(outcome);
+            foreach (var observer in _outcomeObservers)
+            {
+                try
+                {
+                    observer.OnNext(outcome);
+                }
+                catch (Exception ex)
+                {
+                    observer.OnError(ex);
+                }
+            }
+        }
+
+        public IDisposable Subscribe(IObserver<MissionDetails> observer)
+        {
+            _detailObservers.Add(observer);
+            return this;
+        }
+
+        public IDisposable Subscribe(IObserver<MissionOutcome> observer)
+        {
+            _outcomeObservers.Add(observer);
+            return this;
+        }
+
+        public void Dispose()
+        {
+            _detailObservers.ForEach(m => m.OnCompleted());
+            _outcomeObservers.ForEach(m => m.OnCompleted());
         }
     }
 }

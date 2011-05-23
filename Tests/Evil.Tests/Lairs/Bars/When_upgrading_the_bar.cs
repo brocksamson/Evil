@@ -1,5 +1,6 @@
 using System;
 using Evil.Lairs;
+using Evil.TestHelpers;
 using MbUnit.Framework;
 
 // ReSharper disable PossibleNullReferenceException
@@ -100,18 +101,21 @@ namespace Evil.Tests.Lairs.Bars
         }
 
         [Test]
+        [Future]
         public void should_get_available_agent_types()
         {
             throw new NotImplementedException();
         }
 
         [Test]
+        [Future]
         public void should_allow_bartender_to_be_assigned()
         {
             throw new NotImplementedException();
         }
 
         [Test]
+        [Future]
         public void should_allow_waiter_to_be_assigned()
         {
             throw new NotImplementedException();

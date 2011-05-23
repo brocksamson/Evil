@@ -1,4 +1,5 @@
 ﻿using System;
+using Evil.TestHelpers;
 using MbUnit.Framework;
 
 namespace Evil.Tests.Lairs
@@ -10,24 +11,28 @@ namespace Evil.Tests.Lairs
         //addons for torture, jail, body disposal (agent type:cleaner & addon)
 
         [Test]
+        [Future]
         public void Should_be_tortured_if_lair_has_torture_chamber_and_owner_wants()
         {
             throw new NotImplementedException();
         }
 
         [Test]
+        [Future]
         public void Should_be_held_captive_if_lair_has_jail_and_owner_wants()
         {
             throw new NotImplementedException();
         }
 
         [Test]
+        [Future]
         public void Should_be_turned_over_to_police_if_owner_wants()
         {
             throw new NotImplementedException();
         }
 
         [Test]
+        [Future]
         public void Should_be_killed_if_owner_wants()
         {
             throw new NotImplementedException();

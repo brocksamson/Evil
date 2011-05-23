@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive, Version=1.0.10425.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Agents\Jobs\When_cleaning.cs" />
     <Compile Include="Agents\Jobs\When_embezzling.cs" />
+    <Compile Include="Engine\When_rolling_percentages.cs" />
     <Compile Include="Lairs\When_an_agent_is_captured.cs" />
     <Compile Include="Agents\When_an_agent_is_discovered.cs" />
     <Compile Include="Agents\When_infiltrating_a_bar.cs" />
@@ -79,6 +81,10 @@
     <ProjectReference Include="..\..\Source\Evil\Evil.csproj">
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>
       <Name>Evil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evil.TestHelpers\Evil.TestHelpers.csproj">
+      <Project>{FDA43589-2249-4589-B562-880208BF162D}</Project>
+      <Name>Evil.TestHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
