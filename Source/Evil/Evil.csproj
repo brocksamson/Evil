@@ -44,9 +44,9 @@
     <Compile Include="Agents\Agent.cs" />
     <Compile Include="Common\DomainSignatureAttribute.cs" />
     <Compile Include="Common\EntityWithTypedId.cs" />
+    <Compile Include="Common\ILocator.cs" />
     <Compile Include="Engine\Dice.cs" />
     <Compile Include="Engine\IDice.cs" />
-    <Compile Include="Events\IHandler.cs" />
     <Compile Include="Agents\Jobs\Embezzle.cs" />
     <Compile Include="Lairs\Lair.cs" />
     <Compile Include="Common\Area.cs" />
@@ -56,11 +56,11 @@
     <Compile Include="Common\Position.cs" />
     <Compile Include="Common\Target.cs" />
     <Compile Include="Common\TargetQueries.cs" />
-    <Compile Include="Events\IEventSource.cs" />
     <Compile Include="Lairs\Section.cs" />
-    <Compile Include="Missions\MissionDetails.cs" />
+    <Compile Include="Missions\MissionBrief.cs" />
     <Compile Include="Missions\InfiltrationMission.cs" />
     <Compile Include="Missions\MissionOutcome.cs" />
+    <Compile Include="Missions\MissionTimers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\Account.cs" />
     <Compile Include="Users\AccountQueries.cs" />

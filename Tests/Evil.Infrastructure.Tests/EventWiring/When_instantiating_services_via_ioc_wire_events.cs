@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Evil.Events;
 using Evil.Infrastructure.EventWiring;
 using Evil.TestHelpers;
 using MbUnit.Framework;
@@ -298,7 +297,7 @@ namespace Evil.Infrastructure.Tests.EventWiring
         }
     }
 
-    public class FakeHandler : IHandler<FakeEventHandlerArgs>
+    public class FakeHandler
     {
         public void Handle(FakeEventHandlerArgs args)
         {
@@ -321,7 +320,7 @@ namespace Evil.Infrastructure.Tests.EventWiring
         }
     }
 
-    public class FakeEventHandlerArgs : IEventSource
+    public class FakeEventHandlerArgs
     {
         public int Input { get; set; }
     }

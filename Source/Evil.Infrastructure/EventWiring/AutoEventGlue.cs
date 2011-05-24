@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Evil.Events;
 using StructureMap;
 
 namespace Evil.Infrastructure.EventWiring

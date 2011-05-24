@@ -1,4 +1,5 @@
-﻿using Evil.Common;
+﻿using System;
+using Evil.Common;
 using Evil.Infrastructure.Nhibernate;
 using FluentNHibernate;
 using NHibernate;
@@ -23,7 +24,8 @@ namespace Evil.Infrastructure.Structuremap
             For<ISessionSource>().Singleton().Use<NHibernateSessionSource>();
             For<ITransactionBoundary>().HybridHttpOrThreadLocalScoped().Use<NHibernateTransactionBoundary>();
             For<ISession>().Use(c => c.GetInstance<ITransactionBoundary>().CurrentSession);
+
+            For<ILocator>().Singleton().Use<LocatorImp>();
         }
     }
-
 }

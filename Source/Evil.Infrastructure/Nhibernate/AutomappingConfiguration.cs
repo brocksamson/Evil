@@ -18,15 +18,15 @@ namespace Evil.Infrastructure.Nhibernate
         {
             var assemblies = Assembly.GetAssembly(typeof (Entity));
             var conventions = new IConvention[]
-                       {
-                           DefaultCascade.All(),
-                           ConventionBuilder.Id.Always(m => m.GeneratedBy.HiLo("1000"))
-                       };
+                                  {
+                                      DefaultCascade.All(),
+                                      ConventionBuilder.Id.Always(m => m.GeneratedBy.HiLo("1000")),
+                                      ConventionBuilder.HasMany.Always(m => m.Inverse())
+                                  };
 
             mappingConfig.AutoMappings.Add(
                 AutoMap.Assemblies(new AutoMapConfig(), assemblies)
-                    .Conventions
-                    .Add(conventions));
+                    .Conventions.Add(conventions));
         }
 
         #endregion

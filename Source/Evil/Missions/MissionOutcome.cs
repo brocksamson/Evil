@@ -1,17 +1,16 @@
 ﻿using System;
 using Evil.Agents;
 using Evil.Common;
-using Evil.Events;
 using Evil.Lairs;
 
 namespace Evil.Missions
 {
-    public class MissionOutcome : IEventSource
+    public class MissionOutcome : Entity
     {
-        public bool Success { get; set; }
-        public Lair Target { get; set; }
-        public Agent Agent { get; set; }
-        public DateTime CompletionDate { get; set; }
-        public bool Discovered { get; set; }
+        public virtual bool Success { get; set; }
+        public virtual Lair Target { get; set; }
+        public virtual Agent Agent { get; set; }
+        public virtual DateTime CompletionDate { get; set; }
+        public virtual bool Discovered { get; set; }
     }
 }

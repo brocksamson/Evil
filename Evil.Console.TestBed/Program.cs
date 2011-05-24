@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using Evil.Agents;
 using Evil.Engine;
+using Evil.Infrastructure.Structuremap;
 using Evil.Lairs;
 using Evil.Missions;
 
@@ -18,18 +18,9 @@ namespace Evil.TestBed
             var mission = new InfiltrationMission(dice);
 
 
-            //wire up begin event + the timed callback
-            mission.AsObservable<MissionDetails>()
-                .Subscribe(m =>
-                               {
-                                   Console.WriteLine("Mission Started");
-                                   var missionTimer =
-                                       Observable.Return(m).Delay(
-                                           m.MissionStart.Add(m.MissionDuration), Scheduler.CurrentThread);
-                                   missionTimer.Subscribe(_ => mission.Complete(agent));
-                               },
-                           onError => Console.WriteLine("Exception " + onError.Message));
-
+            var timer = new MissionTimer(new LocatorImp());
+            timer.Subscribe(mission);
+           
             //wire up the mission complete event
             mission.AsObservable<MissionOutcome>()
                 .Subscribe(outcome =>

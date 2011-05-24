@@ -8,23 +8,22 @@ namespace Evil.Agents
     public class Agent : Entity
     {
         public virtual string Name { get; set; }
-
-        public MissionDetails CurrentMission { get; set; }
-
-        public List<MissionOutcome> MissionHistory { get; set; }
+        public virtual MissionBrief CurrentMission { get; set; }
+        public virtual List<MissionOutcome> MissionHistory { get; set; }
 
         public Agent()
         {
             MissionHistory = new List<MissionOutcome>();
         }
 
-        public void BeginMission(MissionDetails mission)
+        public virtual void BeginMission(MissionBrief mission)
         {
             if(CurrentMission != null) throw new ArgumentException("Could not begin a mission, agent already has a mission.");
+            mission.Agent = this;
             CurrentMission = mission;
         }
 
-        public void CompleteMission(MissionOutcome outcome)
+        public virtual void CompleteMission(MissionOutcome outcome)
         {
             if(CurrentMission == null) throw new ArgumentException("Could not complete a mission, agent is currently idle.");
             if(CurrentMission.MissionStart.Add(CurrentMission.MissionDuration) > DateTime.Now) throw new ArgumentNullException("Could not complete mission, duration not completed");

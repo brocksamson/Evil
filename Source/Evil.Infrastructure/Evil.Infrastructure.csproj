@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive, Version=1.0.10425.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,7 +66,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventWiring\AutoEventGlue.cs" />
     <Compile Include="Nhibernate\AutomappingConfiguration.cs" />
     <Compile Include="Nhibernate\EvilConnectionString.cs" />
     <Compile Include="Nhibernate\IConnectionString.cs" />
@@ -77,11 +77,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\DomainRegistry.cs" />
+    <Compile Include="Structuremap\LocatorImp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Missions\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Evil\Evil.csproj">
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>

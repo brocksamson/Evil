@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\InfiltrationMissionBase.cs" />
     <Compile Include="Agents\Jobs\When_cleaning.cs" />
     <Compile Include="Agents\Jobs\When_embezzling.cs" />
+    <Compile Include="Agents\When_completing_infiltrating_a_bar_with_a_generic_agent.cs" />
     <Compile Include="Engine\When_rolling_percentages.cs" />
     <Compile Include="Lairs\When_an_agent_is_captured.cs" />
     <Compile Include="Agents\When_an_agent_is_discovered.cs" />

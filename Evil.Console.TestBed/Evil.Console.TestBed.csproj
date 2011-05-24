@@ -11,7 +11,8 @@
     <RootNamespace>Evil.TestBed</RootNamespace>
     <AssemblyName>Evil.TestBed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -48,10 +49,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\Evil.Infrastructure\Evil.Infrastructure.csproj">
+      <Project>{63199572-BC9D-45E1-9F5E-5618DCD29C8C}</Project>
+      <Name>Evil.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Source\Evil\Evil.csproj">
       <Project>{6165284F-F779-42B6-B599-7D5059F335DE}</Project>
       <Name>Evil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

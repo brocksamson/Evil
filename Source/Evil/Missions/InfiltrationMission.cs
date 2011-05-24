@@ -8,22 +8,22 @@ using Evil.Lairs;
 namespace Evil.Missions
 {
     //TODO: pretty sure this class isn't entirely setup per Rx best practices.  Need to review.
-    public class InfiltrationMission :IObservable<MissionDetails>, IObservable<MissionOutcome>, IDisposable
+    public class InfiltrationMission :IObservable<MissionBrief>, IObservable<MissionOutcome>, IDisposable
     {
         private readonly IDice _dice;
         private readonly List<IObserver<MissionOutcome>> _outcomeObservers;
-        private readonly List<IObserver<MissionDetails>> _detailObservers;
+        private readonly List<IObserver<MissionBrief>> _detailObservers;
 
         public InfiltrationMission(IDice dice)
         {
             _dice = dice;
             _outcomeObservers = new List<IObserver<MissionOutcome>>();
-            _detailObservers = new List<IObserver<MissionDetails>>();
+            _detailObservers = new List<IObserver<MissionBrief>>();
         }
 
         public void Begin(Agent agent, Lair target)
         {
-            var details = new MissionDetails
+            var details = new MissionBrief
                        {
                            MissionStart = DateTime.Now,
                            MissionDuration = new TimeSpan(0, 0, 5),
@@ -60,7 +60,7 @@ namespace Evil.Missions
             return .20M + (.05M*tries);
         }
 
-        private void OnMissionStarted(MissionDetails details)
+        private void OnMissionStarted(MissionBrief details)
         {
             foreach (var observer in _detailObservers)
             {
@@ -90,7 +90,7 @@ namespace Evil.Missions
             }
         }
 
-        public IDisposable Subscribe(IObserver<MissionDetails> observer)
+        public IDisposable Subscribe(IObserver<MissionBrief> observer)
         {
             _detailObservers.Add(observer);
             return this;
@@ -104,9 +104,10 @@ namespace Evil.Missions
 
         public void Dispose()
         {
-            //BUG: this is wrong -> multiple calls shouldn't call complete each time.
             _detailObservers.ForEach(m => m.OnCompleted());
             _outcomeObservers.ForEach(m => m.OnCompleted());
+            _detailObservers.Clear();
+            _outcomeObservers.Clear();
         }
     }
 }
