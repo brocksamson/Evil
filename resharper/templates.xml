@@ -1,0 +1,23 @@
+<TemplatesExport>
+  <Template uid="c017796e-9a1a-4d45-ac4a-735431b45502" shortcut="mock" description="Creates a mock" text="$VARIABLE$ = MockRepository.GenerateMock&lt;$TYPE$&gt;();" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="Statement" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="VARIABLE" expression="variableOfType()" initialRange="0" />
+      <Variable name="TYPE" expression="guessExpectedType()" initialRange="0" />
+    </Variables>
+    <CustomProperties />
+  </Template>
+  <Template uid="17ac59aa-bb5d-4baf-939e-e19371be9fbb" shortcut="tm" description="creates a test method stub" text="        [Test]&#xD;&#xA;        public void $METHODNAME$()&#xD;&#xA;        {&#xD;&#xA;            throw new NotImplementedException();&#xD;&#xA;        }&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="METHODNAME" expression="constant(&quot;Should&quot;)" initialRange="0" />
+    </Variables>
+    <CustomProperties />
+  </Template>
+</TemplatesExport>
