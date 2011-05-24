@@ -26,7 +26,7 @@ namespace Evil.Missions
             var details = new MissionDetails
                        {
                            MissionStart = DateTime.Now,
-                           MissionDuration = new TimeSpan(1, 0, 0),
+                           MissionDuration = new TimeSpan(0, 0, 5),
                            SuccessChance = CalculateSuccessChance(agent, target),
                            DiscoveryChance = CalculateDiscoveryChance(agent, target),
                            Target = target
@@ -104,6 +104,7 @@ namespace Evil.Missions
 
         public void Dispose()
         {
+            //BUG: this is wrong -> multiple calls shouldn't call complete each time.
             _detailObservers.ForEach(m => m.OnCompleted());
             _outcomeObservers.ForEach(m => m.OnCompleted());
         }
