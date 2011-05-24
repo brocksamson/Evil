@@ -1,0 +1,17 @@
+<TemplatesExport>
+  <Template uid="029808e4-c0ac-4bdf-8d49-c3d5147d3515" shortcut="" description="TestFixture" text="using NUnit.Framework;&#xD;&#xA;using Rhino.Mocks;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;    [TestFixture]&#xD;&#xA;    public class $CLASSNAME$&#xD;&#xA;    {&#xD;&#xA;        [SetUp]&#xD;&#xA;        public void Arrange()&#xD;&#xA;        {&#xD;&#xA;            $END$&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <ProjectLanguageContext language="CSharp" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+      <Variable name="CLASSNAME" expression="getFileNameWithoutExtension()" initialRange="-1" />
+    </Variables>
+    <CustomProperties>
+      <Property key="FileName" value="TestFixture" />
+      <Property key="Extension" value="cs" />
+      <Property key="ValidateFileName" value="False" />
+    </CustomProperties>
+  </Template>
+</TemplatesExport>

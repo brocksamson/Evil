@@ -20,4 +20,15 @@
     </Variables>
     <CustomProperties />
   </Template>
+  <Template uid="642ffb72-3b22-4497-a1cc-6268d7be9688" shortcut="stub" description="" text="$VARIABLE$ = MockRepository.GenerateStub&lt;$TYPE$&gt;();" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="Statement" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="VARIABLE" expression="variableOfType()" initialRange="0" />
+      <Variable name="TYPE" expression="guessExpectedType()" initialRange="0" />
+    </Variables>
+    <CustomProperties />
+  </Template>
 </TemplatesExport>
